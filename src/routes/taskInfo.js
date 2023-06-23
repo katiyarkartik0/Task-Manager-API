@@ -10,12 +10,77 @@ taskRoutes.use(bodyParser.urlencoded({ extended: false }));
 taskRoutes.use(bodyParser.json());
 
 taskRoutes.get("/", (req, res) => {
-  res.status(200).send(taskData);
+  let taskList = taskData;
+  if (req.query.taskStatus) {
+    const taskStatus = req.query.taskStatus;
+    const completedTasks = taskData.filter((task) => task.flag == true);
+    const pendingTasks = taskData.filter((task) => task.flag == false);
+    if (taskStatus == "true") {
+      taskList = completedTasks;
+    } else {
+      taskList = pendingTasks;
+    }
+  }
+  if (req.query.filterBasis) {
+    const filterBasis = req.query.filterBasis;
+    console.log(filterBasis);
+    const latestTasksPrior = [...taskList];
+    latestTasksPrior.sort((a, b) => {
+      //if creation_date does not exist, we assume it was one of the very earliest entries
+      if (!a.creation_date && b.creation_date) {
+        return 1;
+      }
+      else if (a.creation_date && !b.creation_date) {
+        return -1;
+      }
+      else if (!a.creation_date && !b.creation_date) {
+        return 0;
+      }
+      // if they do exist, then the following
+      else if (a.creation_date && b.creation_date) {
+        if (new Date(a.creation_date) < new Date(b.creation_date)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    });
+    console.log(latestTasksPrior);
+    const earliestTasksPrior = [...taskList];
+    earliestTasksPrior.sort((a, b) => {
+      //if creation_date does not exist, we assume it was one of the very earliest entries
+      if (!a.creation_date && b.creation_date) {
+        return -1;
+      }
+      else if (a.creation_date && !b.creation_date) {
+        return 1;
+      }
+      else if (!a.creation_date && !b.creation_date) {
+        return 0;
+      }
+      // if they do exist, then the following
+      else if (a.creation_date && b.creation_date) {
+        if (new Date(a.creation_date) < new Date(b.creation_date)) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    });
+    console.log(latestTasksPrior);
+
+    if (filterBasis == 'latest') {
+      taskList = latestTasksPrior;
+    } else {
+      taskList = earliestTasksPrior;
+    }
+  }
+  res.status(200).send(taskList);
 });
 
 taskRoutes.post("/", (req, res) => {
-  const newTask = req.body;
-  console.log(newTask);
+  let newTask = req.body;
+  newTask = { ...newTask, creation_date: new Date() };
   const oldTaskData = taskData;
   const validator = new Validator(newTask, taskData);
   const isValid = validator.isIncomingTaskValid();
@@ -80,5 +145,7 @@ taskRoutes.delete("/:id", (req, res) => {
   res.status(200).send("course has been added successfully");
 });
 
+//optional extensions
+taskRoutes.get("/sort");
 
 module.exports = taskRoutes;

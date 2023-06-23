@@ -33,9 +33,9 @@ class Validator {
       this.incomingTask.hasOwnProperty("title") &&
       this.incomingTask.hasOwnProperty("description") &&
       (typeof this.incomingTask.id === "number" ||
-        this.incomingTask.id.length() > 0) &&
-      this.incomingTask.title.length() > 0 &&
-      this.incomingTask.description.length() > 0 &&
+        this.incomingTask.id.length > 0) &&
+      this.incomingTask.title.length > 0 &&
+      this.incomingTask.description.length > 0 &&
       typeof this.incomingTask.flag === "boolean"
     ) {
       return true;
