@@ -109,7 +109,7 @@ taskRoutes.put("/:id", (req, res) => {
   const taskId = req.params.id;
   const revisedTask = req.body;
   const validator = new Validator(newTask, taskData);
-  const isValid = validator.isIncomingTaskValid();
+  const isValid = validator.isRevisedTaskValid();
   if (isValid.status === true) {
     const updatedTasks = taskData.map((task, index) => {
       if (task.id == taskId) {
