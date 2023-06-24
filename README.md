@@ -29,7 +29,7 @@ The above request is to create a new task with its unique id as passed in the qu
 }
 ```
 #### Validations of the incoming task body
-validations have been added such that the incoming task body contains the id(unique, mandatory), title(mandatory), description(mandatory)
+validations have been added such that the incoming task body contains the id(unique, mandatory), title(mandatory), description(mandatory), flag(mandatory)
 
 ### PUT /tasks/:id
 Update an existing task by its ID.
@@ -45,7 +45,7 @@ the content should be passed in the req body as follows
 }
 ```
 #### Validations of the incoming task body
-validations have been added such that the updating task body contains the id(mandatory), title(mandatory), description(mandatory)
+validations have been added such that the updating task body contains the id(mandatory), title(mandatory), description(mandatory),flag(mandatory)
 
 
 ### DELETE /tasks/:id
