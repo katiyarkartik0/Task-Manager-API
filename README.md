@@ -18,13 +18,14 @@ The above request is to create a new task with its unique id as passed in the qu
 {   
     "id": 5,
     "title": "dsvkmcjkzxhjbdjwkd_",
-    "description": "new du", 
+    "description": "new du",
+    "flag": true,
+
 }
 ```
-> The below attributes are optional. If the attribute flag is not passed explicitly, it will automatically be created as false. Similarly, if the attribute priority_level is not passed explicitly, it will automatically be created as low. The attribute creation_date will be created automatically in the server(No need to pass explicitly).
+> The below attributes are optional. If the attribute priority_level is not passed explicitly, it will automatically be created as low. The attribute creation_date will be created automatically in the server(No need to pass explicitly).
 ```
 {
-    "flag": true,
     "priority_level": "low" 
 }
 ```
