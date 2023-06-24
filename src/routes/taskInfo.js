@@ -136,7 +136,7 @@ taskRoutes.delete("/:id", (req, res) => {
     encoding: "utf-8",
     flag: "w",
   });
-  res.status(200).send("course has been added successfully");
+  res.status(200).send("course has been DELETED successfully!");
 });
 
 //manipulate priority level of existing tasks
