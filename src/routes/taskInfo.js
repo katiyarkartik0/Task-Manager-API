@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 const Validator = require("../helper/validator");
+const priority = require("./priority.js")
 
 taskRoutes.use(bodyParser.urlencoded({ extended: false }));
 taskRoutes.use(bodyParser.json());
@@ -145,6 +146,8 @@ taskRoutes.delete("/:id", (req, res) => {
   res.status(200).send("course has been added successfully");
 });
 
+//manipulate priority level of existing tasks
+taskRoutes.use("/priority",priority);
 //optional extensions
 taskRoutes.get("/sort");
 

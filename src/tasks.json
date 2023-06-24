@@ -3,32 +3,37 @@
     "id": 1,
     "title": "Get apples",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "flag": true
+    "flag": true,
+    "priority_level": "medium"
   },
   {
     "id": 2,
     "title": "Bring kids home",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "flag": false
+    "flag": false,
+    "priority_level": "high"
   },
   {
     "title": "updated [] 123 new task 3",
     "description": "updated dummy description fo task 3",
     "flag": true,
-    "id": "3"
+    "id": "3",
+    "priority_level": "high"
   },
   {
     "id": 12,
     "title": "updated [] 123 new task 4",
     "description": "updated dummy description fo task 4",
     "flag": false,
-    "creation_date": "2023-06-23T16:37:35.115Z"
+    "creation_date": "2023-06-23T16:37:35.115Z",
+    "priority_level": "high"
   },
   {
     "id": 5,
     "title": "dsvkmcjkzxhjbdjwkd_",
     "description": "updated du",
     "flag": true,
-    "creation_date": "2023-06-23T16:38:44.624Z"
+    "creation_date": "2023-06-23T16:38:44.624Z",
+    "priority_level": "low"
   }
 ]
