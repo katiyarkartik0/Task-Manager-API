@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 const Validator = require("../helper/validator");
-const priority = require("./priority.js")
+const priority = require("./priority.js");
 
 taskRoutes.use(bodyParser.urlencoded({ extended: false }));
 taskRoutes.use(bodyParser.json());
@@ -24,17 +24,14 @@ taskRoutes.get("/", (req, res) => {
   }
   if (req.query.filterBasis) {
     const filterBasis = req.query.filterBasis;
-    console.log(filterBasis);
     const latestTasksPrior = [...taskList];
     latestTasksPrior.sort((a, b) => {
       //if creation_date does not exist, we assume it was one of the very earliest entries
       if (!a.creation_date && b.creation_date) {
         return 1;
-      }
-      else if (a.creation_date && !b.creation_date) {
+      } else if (a.creation_date && !b.creation_date) {
         return -1;
-      }
-      else if (!a.creation_date && !b.creation_date) {
+      } else if (!a.creation_date && !b.creation_date) {
         return 0;
       }
       // if they do exist, then the following
@@ -46,17 +43,14 @@ taskRoutes.get("/", (req, res) => {
         }
       }
     });
-    console.log(latestTasksPrior);
     const earliestTasksPrior = [...taskList];
     earliestTasksPrior.sort((a, b) => {
       //if creation_date does not exist, we assume it was one of the very earliest entries
       if (!a.creation_date && b.creation_date) {
         return -1;
-      }
-      else if (a.creation_date && !b.creation_date) {
+      } else if (a.creation_date && !b.creation_date) {
         return 1;
-      }
-      else if (!a.creation_date && !b.creation_date) {
+      } else if (!a.creation_date && !b.creation_date) {
         return 0;
       }
       // if they do exist, then the following
@@ -68,9 +62,8 @@ taskRoutes.get("/", (req, res) => {
         }
       }
     });
-    console.log(latestTasksPrior);
 
-    if (filterBasis == 'latest') {
+    if (filterBasis == "latest") {
       taskList = latestTasksPrior;
     } else {
       taskList = earliestTasksPrior;
@@ -82,6 +75,9 @@ taskRoutes.get("/", (req, res) => {
 taskRoutes.post("/", (req, res) => {
   let newTask = req.body;
   newTask = { ...newTask, creation_date: new Date() };
+  if (!newTask.flag) {
+    newTask = { ...newTask, flag: false };
+  }
   const oldTaskData = taskData;
   const validator = new Validator(newTask, taskData);
   const isValid = validator.isIncomingTaskValid();
@@ -100,7 +96,6 @@ taskRoutes.post("/", (req, res) => {
 
 taskRoutes.get("/:id", (req, res) => {
   const taskId = req.params.id;
-  console.log(taskId);
   const data = taskData.filter((task, idx) => {
     if (task.id == taskId) {
       return true;
@@ -118,12 +113,11 @@ taskRoutes.put("/:id", (req, res) => {
   if (isValid.status === true) {
     const updatedTasks = taskData.map((task, index) => {
       if (task.id == taskId) {
-        return revisedTask;
+        return { ...task, revisedTask };
       }
       return task;
     });
     const writePath = path.join(__dirname, "..", "tasks.json");
-    console.log(writePath, updatedTasks);
     fs.writeFileSync(writePath, JSON.stringify(updatedTasks), {
       encoding: "utf-8",
       flag: "w",
@@ -138,7 +132,6 @@ taskRoutes.delete("/:id", (req, res) => {
   const taskId = req.params.id;
   const updatedTask = taskData.filter((task, idx) => task.id != taskId);
   const writePath = path.join(__dirname, "..", "tasks.json");
-  console.log(writePath, updatedTask);
   fs.writeFileSync(writePath, JSON.stringify(updatedTask), {
     encoding: "utf-8",
     flag: "w",
@@ -147,7 +140,7 @@ taskRoutes.delete("/:id", (req, res) => {
 });
 
 //manipulate priority level of existing tasks
-taskRoutes.use("/priority",priority);
+taskRoutes.use("/priority", priority);
 //optional extensions
 taskRoutes.get("/sort");
 

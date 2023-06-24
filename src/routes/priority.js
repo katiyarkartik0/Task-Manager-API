@@ -26,7 +26,6 @@ priorityRoutes.put("/:id", (req, res) => {
     return task;
   });
   const writePath = path.join(__dirname, "..", "tasks.json");
-  console.log(writePath, updatedTasks);
   fs.writeFileSync(writePath, JSON.stringify(updatedTasks), {
     encoding: "utf-8",
     flag: "w",
