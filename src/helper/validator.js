@@ -5,15 +5,15 @@ class Validator {
   }
   isRevisedTaskValid() {
     if (this.inputValidation()) {
-        return {
-          status: true,
-          message: "course has been updated successfully",
-        };
-      }
       return {
-        status: false,
-        message: "course has NOT been updated!",
+        status: true,
+        message: "course has been updated successfully",
       };
+    }
+    return {
+      status: false,
+      message: "course has NOT been updated!",
+    };
   }
   isIncomingTaskValid() {
     if (this.inputValidation() && this.hasUniqueTaskId()) {
@@ -32,6 +32,7 @@ class Validator {
       this.incomingTask.hasOwnProperty("id") &&
       this.incomingTask.hasOwnProperty("title") &&
       this.incomingTask.hasOwnProperty("description") &&
+      this.incomingTask.hasOwnProperty("flag") &&
       (typeof this.incomingTask.id === "number" ||
         this.incomingTask.id.length > 0) &&
       this.incomingTask.title.length > 0 &&
@@ -40,6 +41,7 @@ class Validator {
     ) {
       return true;
     }
+    return false;
   }
   hasUniqueTaskId() {
     for (let i = 0; i < this.tasks.length; i++) {
@@ -51,4 +53,4 @@ class Validator {
   }
 }
 
-module.exports = Validator
+module.exports = Validator;

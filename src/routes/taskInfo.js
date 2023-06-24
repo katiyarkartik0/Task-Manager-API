@@ -75,8 +75,8 @@ taskRoutes.get("/", (req, res) => {
 taskRoutes.post("/", (req, res) => {
   let newTask = req.body;
   newTask = { ...newTask, creation_date: new Date() };
-  if (!newTask.flag) {
-    newTask = { ...newTask, flag: false };
+  if (!newTask.priority_level) {
+    newTask = { ...newTask, priority_level: "low" };
   }
   const oldTaskData = taskData;
   const validator = new Validator(newTask, taskData);
@@ -108,12 +108,12 @@ taskRoutes.get("/:id", (req, res) => {
 taskRoutes.put("/:id", (req, res) => {
   const taskId = req.params.id;
   const revisedTask = req.body;
-  const validator = new Validator(newTask, taskData);
+  const validator = new Validator(revisedTask, taskData);
   const isValid = validator.isRevisedTaskValid();
   if (isValid.status === true) {
     const updatedTasks = taskData.map((task, index) => {
       if (task.id == taskId) {
-        return { ...task, revisedTask };
+        return { ...task, ...revisedTask };
       }
       return task;
     });
